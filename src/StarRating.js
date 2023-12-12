@@ -15,9 +15,14 @@ export default function StarRating({
   size = 48,
   messages = [],
   defaultRating = 0,
+  onSetRating,
 }) {
   const [rating, setRating] = useState(defaultRating);
   const [tempRating, setTempRating] = useState(0);
+  function handleRating(rating) {
+    setRating(rating);
+    onSetRating(rating);
+  }
   const textStyle = {
     lineHeight: "1",
     margin: "0",
@@ -32,7 +37,7 @@ export default function StarRating({
             color={color}
             size={size}
             key={i}
-            onRate={() => setRating(i + 1)}
+            onRate={() => handleRating(i + 1)}
             onHoverin={() => setTempRating(i + 1)}
             onHoverout={() => setTempRating(0)}
             full={tempRating ? tempRating >= i + 1 : rating >= i + 1}
